@@ -5,19 +5,31 @@
 # email: jimmylch@usc.edu
 #
 # Compiled on OS X Yosemite with gcc
-# Define compiler and linker
 
 CC=g++
 LN=g++
 all : prob1
-prob1 : p1a
-p1a : p1a1
+prob1 : p1a p1b
+p1a : p1a1 p1b
 p1a1:
 	@echo "Problem 1 Part a Part 1"
 	@echo "compiling and linking code"
 	$(CC) -c readraw.cpp
-	$(LN) readraw.o -o solution1
-	@echo "to run program syntax is: "program_name input_image.raw output_image.raw [BytesPerPixel = 1] [Height = 256, Width = 256]""
+	$(LN) readraw.o -o solution1a
+	@echo "to run program syntax is: "program_name input_image.raw output_image.raw [BytesPerPixel] [Width, Height]""
+
+p1b : p1b1 p1b2
+p1b1:
+	@echo "Problem 1 Part b Part 1"
+	@echo "compiling and linking code"
+	$(cc) -c q1b1.cpp
+	$(LN) q1b1.o -o solution1b
+	@echo "output image '.raw' extension is added programmatically"
+	@echo "to run program syntax is: "program_name input_image.raw output_image [BytesPerPixel] [Width, Height]""
+
+p1b2:
+	@echo "Problem 1 Part b Part 1"
+	@echo "compiling and linking code"
 
 
 clean:
