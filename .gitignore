@@ -30,9 +30,12 @@
 *.exe
 *.out
 *.app
+<<<<<<< HEAD
 *.i*86
 *.x86_64
 *.hex
+=======
+>>>>>>> 6a35d227cdfec6a644fae7db9f8713ac65d54ae5
 
 # Debug files
 *.dSYM/
