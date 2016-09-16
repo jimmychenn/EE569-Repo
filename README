@@ -55,6 +55,19 @@ q2b:
 	$(LN) q2b.o -o sol2b
 	@echo "to run program syntax is: "program_name input_image.raw output_image [BytesPerPixel] [Width, Height]""
 
+q2c:
+	@echo "Problem 2 part c"
+	@echo "compiling and linking code"
+	$(CC) -c q2c.cpp
+	$(LN) q2c.o -o sol2c
+	@echo "to run program syntax is: "program_name original_input_image1.raw target_input_image2.raw output_image width1 height1 width2 height2""
+
+q2d:
+	@echo "Problem 2 part d"
+	@echo "compiling and linking code"
+	$(CC) -c q2d.cpp
+	$(LN) q2d.o -o sol2d
+	@echo "to run program syntax is: "program_name original_input_image1.raw output_image width height""
 
 clean:
-	rm *o solution1
+	rm *o sol*
