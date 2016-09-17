@@ -69,5 +69,13 @@ q2d:
 	$(LN) q2d.o -o sol2d
 	@echo "to run program syntax is: "program_name original_input_image1.raw output_image width height""
 
+q3a:
+	@echo "Problem 3 part a"
+	@echo "compiling and linking code"
+	$(CC) -c q3a.cpp
+	$(LN) q3a.o -o sol3a
+	@echo "to run program syntax is: "program_name input_image_noisy.raw input_image_clean.raw output_image width height""
+
+
 clean:
 	rm *o sol*
