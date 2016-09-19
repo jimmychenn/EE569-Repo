@@ -8,37 +8,39 @@
 
 CC=g++
 LN=g++
-all : prob1
-prob1 : p1a p1b
-p1a : p1a1 p1a2
-p1a1:
+all : q1 q2 q3
+q1 : q1a q1b
+q1a : q1a1 q1a2
+q1b : q1b1 q1b2
+q2 : q2a q2b q2c q2d
+q3 : q3a q3b
+q1a1:
 	@echo "Problem 1 Part a Part 1"
 	@echo "compiling and linking code"
 	$(CC) -c q1a1.cpp
-	$(LN) q1a1.o -o solution1a
+	$(LN) q1a1.o -o sol1a1
 	@echo "to run program syntax is: "program_name input_image.raw output_image.raw [BytesPerPixel] [Width, Height]""
 
-p1a2:
+q1a2:
 	@echo "Problem 1 Part a Part 2"
 	@echo "compiling and linking code"
 	$(CC) -c q1a2.cpp
-	$(LN) q1a2.o -o solution1a2
+	$(LN) q1a2.o -o sol1a2
 	@echo "to run program syntax is: "program_name input_image.raw output_image.raw""
 
-p1b : p1b1 p1b2
-p1b1:
+q1b1:
 	@echo "Problem 1 Part b Part 1"
 	@echo "compiling and linking code"
 	$(CC) -c q1b1.cpp
-	$(LN) q1b1.o -o solution1b1
+	$(LN) q1b1.o -o sol1b1
 	@echo "to run program syntax is: "program_name input_image.raw output_image [BytesPerPixel] [Width, Height]""
 	@echo "output image '.raw' extension is added programmatically"
 
-p1b2:
+q1b2:
 	@echo "Problem 1 Part b Part 2"
 	@echo "compiling and linking code"
 	$(CC) -c q1b2.cpp
-	$(LN) q1b2.o -o solution1b2
+	$(LN) q1b2.o -o sol1b2
 	@echo "to run program syntax is: "program_name input_image.raw output_image [BytesPerPixel] [Width, Height]""
 
 q2a:
@@ -74,6 +76,13 @@ q3a:
 	@echo "compiling and linking code"
 	$(CC) -c q3a.cpp
 	$(LN) q3a.o -o sol3a
+	@echo "to run program syntax is: "program_name input_image_noisy.raw input_image_clean.raw output_image width height""
+
+q3b:
+	@echo "Problem 3 part b"
+	@echo "compiling and linking code"
+	$(CC) -c q3b.cpp
+	$(LN) q3b.o -o sol3b
 	@echo "to run program syntax is: "program_name input_image_noisy.raw input_image_clean.raw output_image width height""
 
 

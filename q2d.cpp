@@ -66,7 +66,6 @@ int main(int argc, char *argv[]) {
 	typedef map<int, vector<Point> >::iterator it_type;
 
 	const int nrolls=PixelNum;  // number of experiments
-	//const int nstars = PixelNum;    // maximum number of stars to distribute
 	int gauss[256] = {0};
 	default_random_engine generator;
 	normal_distribution<double> distribution(125.0, 40.0);
@@ -81,11 +80,7 @@ int main(int argc, char *argv[]) {
 			}			
 		}
 	}
-/*
-	for(int i = 0; i < 256; i++) {
-		cout << i << ":\t" << gauss[i] << endl;
-	}
-*/
+
 	std::map<int, vector<Point> > hist;
 	for(int i =0; i < 256; i++) {
 		hist[i] = vector<Point>();
@@ -111,47 +106,6 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-
-	
-	//Bin method
-/*
-	for(int k = 0; k < BytesPerPixel; k++) {
-		for(it_type it = histRGB[k].begin(); it != histRGB[k].end(); it++) {
-			for(int i = 0; i < it->second.size(); i++) {
-				int x_ind = it->second[i].getX();
-				int y_ind = it->second[i].getY();
-				targetImage[x_ind][y_ind][k] = start_index[k];
-				if(++bin_count[k] == targetImageBinSizes[start_index[k]][k]){
-					bin_count[k] = 0;
-					start_index[k]++;
-				}
-			}
-		}
-	}
-*/
-/*
-	typedef map<int, vector<Point> >::iterator it_type;
-	for(it_type it = hist.begin(); it != hist.end(); it++){
-		cout << it->first << ": ";
-		for(int i = 0; i < it->second.size(); i++){
-			cout << it->second[i].getX() << "," << it->second[i].getY() << "\t";
-		}
-		cout << endl;
-	}
-*/
-
-
-	/*
-	for(int i = 0; i < 256; i++) {
-		for(int j = 0; j < BytesPerPixel; j++) {
-			cout << histogramRGB[i][j] << '\t';
-		}
-		cout << endl;
-	}
-	*/
-
-
-
 
 	// Write image data (filename specified by second argument) from image data matrix
 	string toName(argv[2]);

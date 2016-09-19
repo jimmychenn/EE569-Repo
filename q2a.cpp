@@ -44,9 +44,9 @@ LinStretch::LinStretch(int _d_min, int _d_max, int _a_min, int _a_max)
 int LinStretch::transform(int actual) {
 	int desired = 0;
 	double f = (double) (d_max - d_min)/ (double) (a_max - a_min);
-	cout << "Scale factor:" << f << endl;
+	//cout << "Scale factor:" << f << endl;
 	desired = d_min + f * (actual - a_min);
-	cout << "Transform output:" << desired << endl;
+	//cout << "Transform output:" << desired << endl;
 	return desired;
 }
 
