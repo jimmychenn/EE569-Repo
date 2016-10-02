@@ -1,0 +1,22 @@
+# EE569 Homework Assignment #1
+# Date: 9/18/2016
+# Name: Jimmy Chen
+# ID: 8697-2912-40
+# email: jimmylch@usc.edu
+#
+# Compiled on OS X Yosemite with gcc
+
+CC=g++
+LN=g++
+export CPATH=boost_1_61_0/
+
+all:
+	@echo "Problem 1 part a"
+	@echo "compiling and linking code"
+#	$(CC) -c readraw.h
+	$(LN) p1.cpp -o sol1
+	@echo "to run program syntax is: "program_name input_image.raw output_image width height""
+
+
+clean:
+	rm *o sol*
