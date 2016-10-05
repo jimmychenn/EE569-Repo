@@ -8,15 +8,19 @@
 
 CC=g++
 LN=g++
-export CPATH=boost_1_61_0/
+export CPATH=boost_1_61_0/:include/
 
-all:
+p1a:
 	@echo "Problem 1 part a"
 	@echo "compiling and linking code"
 #	$(CC) -c readraw.h
-	$(LN) p1.cpp -o sol1
-	@echo "to run program syntax is: "program_name input_image.raw output_image width height""
-
+	$(LN) P1/src/p1a.cpp -o sol1a
+	@echo "to run program syntax is: "program_name input_image.raw output_image bytesperpixel width height""
+p1b:
+	@echo "Problem 1 part b"
+	@echo "compiling and linking code"
+	$(LN) P1/src/p1b.cpp -o sol1b
+	@echo "to run program syntax is: "program_name""
 
 clean:
 	rm *o sol*

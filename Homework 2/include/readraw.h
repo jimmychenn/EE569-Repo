@@ -7,7 +7,7 @@
 #include "boost/multi_array.hpp"
 #include "global.h"
 
-bool checkArgs(int argc, char* argv[]) {
+bool p1aCheckArgs(int argc, char* argv[]) {
 	// Check for proper syntax
 	if (argc != 6){
 		std::cout << "Syntax Error - Incorrect Parameter Usage:" << std::endl;
@@ -68,32 +68,33 @@ image_type read(char* inFilename, int height, int width, int bytesperpixel) {
 
 void write(image_type image, char* outFilename) {
 	FILE *file;
-	unsigned char Imagedata[Width][Height][BytesPerPixel];
+	int height = image.shape()[0];
+	int width = image.shape()[1];
+	int bytesperpixel = image.shape()[2];
+	unsigned char Imagedata[height][width][bytesperpixel];
 
-	for(int i = 0; i < Width; i++) {
-		for(int j = 0; j < Height; j++) {
-			for(int k = 0; k < BytesPerPixel; k++) {
+	for(int i = 0; i < height; i++) {
+		for(int j = 0; j < width; j++) {
+			for(int k = 0; k < bytesperpixel; k++) {
 				Imagedata[i][j][k] = image[i][j][k];
 			}
 		}
 	}
-	//funcImagedata = func((unsigned char**) Imagedata, Width, Height, BytesPerPixel);
-	// Write image data (filename specified by second argument) from image data matrix
-
+	// Write image data from image data matrix
 	if (!(file=fopen(outFilename,"wb"))) {
 		std::cout << "Cannot open file: " << outFilename << std::endl;
 		exit(1);
 	}
-	fwrite(Imagedata, sizeof(unsigned char), Width*Height*BytesPerPixel, file);
+	fwrite(Imagedata, sizeof(unsigned char), width*height*bytesperpixel, file);
 	fclose(file);
 }
 
 void write(image_type image, char* outFilename, int height, int width) {
 	FILE *file;
-	unsigned char Imagedata[width][height][BytesPerPixel];
+	unsigned char Imagedata[height][width][BytesPerPixel];
 
-	for(int i = 0; i < width; i++) {
-		for(int j = 0; j < height; j++) {
+	for(int i = 0; i < height; i++) {
+		for(int j = 0; j < width; j++) {
 			for(int k = 0; k < BytesPerPixel; k++) {
 				Imagedata[i][j][k] = image[i][j][k];
 			}
