@@ -21,6 +21,29 @@ p1b:
 	@echo "compiling and linking code"
 	$(LN) P1/src/p1b.cpp -o sol1b
 	@echo "to run program syntax is: "program_name""
+p1c:
+	@echo "Problem 1 part c"
+	@echo "compiling and linking code"
+	$(LN) P1/src/p1c.cpp -o sol1c
+	@echo "to run program syntax is: "program_name""
+
+p2a:
+	@echo "Problem 2 part a"
+	@echo "compiling and linking code"
+	$(LN) P2/src/p2a.cpp -o sol2a
+	@echo "to run program syntax is: "program_name""
+
+p2b:
+	@echo "Problem 2 part b"
+	@echo "compiling and linking code"
+	$(LN) P2/src/p2b.cpp -o sol2b
+	@echo "to run program syntax is: "program_name""
+
+p3a:
+	@echo "Problem 3 part a"
+	@echo "compiling and linking code"
+	$(LN) P3/src/p3a.cpp -o sol3a
+	@echo "to run program syntax is: "program_name""
 
 clean:
 	rm *o sol*

@@ -2,6 +2,9 @@
 #define SOLUTIONS_H
 #include "global.h"
 #include "userio.h"
+#include "helper.h"
+#include "errordiffusion.h"
+#include "morph.h"
 
 class Point {
   public:
@@ -75,7 +78,7 @@ image_type solutionq1b(image_type pieceImage) {
 	image_type Hillary = read(HILLARY_FILE, oHeight, oWidth, BytesPerPixel);
 	image_type Trump = read(TRUMP_FILE, oHeight, oWidth, BytesPerPixel);
 
-	int userin = userInput();
+	int userin = userInputq1b();
 	if(userin == 1 ) {
 		find_piece_start = 0;
 		find_piece_end = pWidth/2;
@@ -384,6 +387,177 @@ image_type solutionq1b(image_type pieceImage) {
 		return Hillary;
 	else if(userin == 2)
 		return Trump;
+}
+
+
+
+image_type solutionq1c(image_type image) {
+	image_type tartansImage = read(TARTANS_FILE, 350, 146, 3);
+	image_type trojansImage = read(TROJANS_FILE, 350, 146, 3);
+	double h11 = 1.7361;
+	double h12 = 0.9251;
+    double h13 = 334.8499;
+    double h21 = 0.4462;
+    double h22 = -0.1740;
+  	double h23 = 594.5630;
+    double h31 = 0.0022;
+    double h32 = -0.0006;
+
+    int userin = userInputq1c();
+
+    Point topleft(20,24);
+    Point topright(330,24);
+    Point botleft(20,140);
+    Point botright(330,140);
+    for(int y = topleft.y; y < botright.y; y++) {
+    	for(int x = topleft.x; x < botright.x; x++) {
+    		for(int k = 0; k < BytesPerPixel; k++) {
+    			double x_temp = h11*x + h12*y + h13;
+    			double y_temp = h21*x + h22*y + h23;
+    			double w = h31*x + h32*y + 1;
+    			int x_ind = (double)x_temp/(double)w;
+    			int y_ind = (double)y_temp/(double)w;
+
+    			// std::cout << "x:" << x << " " << "y:" << y << std::endl;
+    			// std::cout << "x_temp:" << x_temp << " " << "y_temp:" << y_temp << " " << "w:" << w << std::endl;
+    			// std::cout << "x_ind:" << x_ind << " " << "y_ind:" << y_ind << std::endl;
+    			if(userin == 1){
+    				if(tartansImage[y][x][k] > 10)
+	    				image[y_ind][x_ind][k] = tartansImage[y][x][k];
+    			}
+    			else if(userin == 2){
+					if(trojansImage[y][x][k] < 245)
+    					image[y_ind][x_ind][k] = trojansImage[y][x][k];
+    			}
+    		}
+    	}
+    }
+    return image;
+}
+
+void solutionq2a(image_type image) {
+	int height = image.shape()[0];
+	int width = image.shape()[1];
+	int bytesperpixel = image.shape()[2];
+
+	filter T2 = getT2();
+	image_type imageI2 = dither(image, T2);
+
+	filter T8 = getT8();
+	image_type imageI8 = dither(image, T8);
+	
+	filter T4 = getT4();
+	image_type imageI4 = dither(image, T4);
+
+	filter A4 = getA4();
+	image_type imageA4 = dither(image, A4);
+
+
+	char str[80];
+	strcat(str, P2A_OUT);
+	strcat(str, "I2.raw");
+	write(imageI2, str);
+	memset(str, 0, sizeof str);
+
+	strcat(str, P2A_OUT);
+	strcat(str, "I4.raw");
+	write(imageI4, str);
+	memset(str, 0, sizeof str);
+
+	strcat(str, P2A_OUT);
+	strcat(str, "I8.raw");
+	write(imageI8, str);
+	memset(str, 0, sizeof str);
+
+	strcat(str, P2A_OUT);
+	strcat(str, "A4.raw");
+	write(imageA4, str);
+	memset(str, 0, sizeof str);
+
+	//quarter toning
+	filter T4_1 = getT4_1();
+	filter T4_2 = getT4_2();
+
+
+	//Create a 3 dimensional filter that divides the matrix Bayer identity value into 3 parts.
+	for(int y = 0; y < image.shape()[0]; y++) {
+		for(int x = 0; x < image.shape()[1]; x++) {
+			for(int k = 0; k < image.shape()[2]; k++) {
+				int f_y = y%T4.shape()[0];
+				int f_x = x%T4.shape()[1];
+				int p = image[y][x][k];
+				if(p > T4[f_y][f_x]) {
+					image[y][x][k] = 255;
+				} else if(p > T4_2[f_y][f_x]) {
+					image[y][x][k] = 170;
+				} else if(p > T4_1[f_y][f_x]) {
+					image[y][x][k] = 85;
+				} else {
+					image[y][x][k] = 0;
+				}
+			}
+		}
+	}
+
+	strcat(str, P2A_OUT);
+	strcat(str, "I4_Quarter.raw");
+	write(image, str);
+	memset(str, 0, sizeof str);
+}
+
+void solutionq2b(image_type image) {
+	double_image_type double_image = unsigned_char_image_to_double(image);
+	double_image_type FS_double_image = floyd_steinberg(double_image);
+	char str[80];
+	strcat(str, P2B_OUT);
+	strcat(str, "FloydSteinberg.raw");
+	image_type FS_image = double_image_to_unsigned_char(FS_double_image);
+	write(FS_image, str);
+	memset(str, 0, sizeof str);
+
+	double_image_type JJN_double_image = error_diffusion(double_image, getJJN());
+	strcat(str, P2B_OUT);
+	strcat(str, "JJN.raw");
+	image_type JJN_image = double_image_to_unsigned_char(JJN_double_image);
+	write(JJN_image, str);
+	memset(str, 0, sizeof str);
+
+	double_image_type Stucki_double_image = error_diffusion(double_image, getStucki());
+	strcat(str, P2B_OUT);
+	strcat(str, "Stucki.raw");
+	image_type Stucki_image = double_image_to_unsigned_char(Stucki_double_image);
+	write(Stucki_image, str);
+	memset(str, 0, sizeof str);
+}
+
+void write_image(image_type image, char* name) {
+	char str[80];
+	strcpy(str, name);
+	write(image, str);
+}
+
+void solutionq3a(image_type image) {
+	char name[80];
+
+	image_type gray_image = to_grayscale(image);
+	strcpy(name, "grayscale_rice.raw");
+	write(gray_image, name);
+	memset(name, 0, sizeof name);
+
+	image_type binarized_image = binarize(gray_image, GLOBAL_MEAN_THRESHOLD);
+	strcpy(name, "binarized_rice.raw");
+	write(binarized_image, name);
+	memset(name, 0, sizeof name);
+
+	binarized_image = median_filter(binarized_image);
+	strcpy(name, "binarized_filtered_rice.raw");
+	write(binarized_image, name);
+	memset(name, 0, sizeof name);
+
+	image_type M_matrix = create_M(binarized_image);
+	strcpy(name, "binarized_filtered_rice_Mmatrix.raw");
+	write(M_matrix, name);
+	memset(name, 0, sizeof name);
 }
 
 #endif
