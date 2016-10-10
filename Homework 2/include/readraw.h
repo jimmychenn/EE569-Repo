@@ -66,6 +66,29 @@ image_type read(char* inFilename, int height, int width, int bytesperpixel) {
 	return image;
 }
 
+image_type read_p3a(char* inFilename, int height, int width, int bytesperpixel) {
+	FILE *file;
+	unsigned char Imagedata[height][width][bytesperpixel];
+	image_type image(boost::extents[height][width][bytesperpixel]);
+	// Read image (filename specified by first argument) into image data matrix
+	if (!(file=fopen(inFilename,"rb"))) {
+		std::cout << "Cannot open file: " << inFilename <<std::endl;
+		exit(1);
+	}
+	fread(Imagedata, sizeof(unsigned char), width*height*bytesperpixel, file);
+	fclose(file);
+
+	for(int i = 0; i < height; i++) {
+		for(int j = 0; j < width; j++) {
+			for(int k = 0; k < bytesperpixel; k++) {
+				image[i][j][k] = Imagedata[i][j][k];
+			}
+		}
+	}
+	return image;
+}
+
+
 void write(image_type image, char* outFilename) {
 	FILE *file;
 	int height = image.shape()[0];
@@ -87,6 +110,7 @@ void write(image_type image, char* outFilename) {
 	}
 	fwrite(Imagedata, sizeof(unsigned char), width*height*bytesperpixel, file);
 	fclose(file);
+	std::cout << "Dimensions:" << height << "x" << width << std::endl;
 }
 
 void write(image_type image, char* outFilename, int height, int width) {
@@ -109,6 +133,14 @@ void write(image_type image, char* outFilename, int height, int width) {
 	}
 	fwrite(Imagedata, sizeof(unsigned char), width*height*BytesPerPixel, file);
 	fclose(file);
+	std::cout << "Dimensions:" << width << "x" << height << std::endl;
+}
+
+void write_image(image_type image, char* name, const char* suffix) {
+	char str[80];
+	strcpy(str, name);
+	strcat(str, suffix);
+	write(image, str);
 }
 
 #endif

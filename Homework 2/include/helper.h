@@ -162,8 +162,8 @@ image_type binarize(image_type image, int num) {
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				for(int k = 0; k < bytes; k++) {
-					if(image[y][x][k] > threshold) binarized_image[y][x][k] = 0;
-					else binarized_image[y][x][k] = 255;
+					if(image[y][x][k] > threshold) binarized_image[y][x][k] = 255;
+					else binarized_image[y][x][k] = 0;
 				}
 			}
 		}

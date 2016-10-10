@@ -222,9 +222,9 @@ three_d_int get_bond_mask_stk8() {
 	for(int k = 0; k < stk8.shape()[2]; k++)
 		stk8[1][1][k] = 1;
 
-	stk8[0][0][0] = 1;
 	stk8[0][1][0] = 1;
 	stk8[0][2][0] = 1;
+	stk8[1][2][0] = 1;
 	stk8[2][2][0] = 1;
 	stk8[2][1][0] = 1;
 	stk8[0][0][1] = 1;
@@ -314,6 +314,26 @@ void print(three_d_int mask) {
 			std::cout << std::endl;
 		}
 		three_d_int mask_temp = mask;
+		std::cout << std::endl;
+	}
+}
+
+void print(image_type image) {
+	for(int i = 0; i < image.shape()[0]; i++) {
+		for(int j = 0; j < image.shape()[1]; j++) {
+			for(int k = 0; k < image.shape()[2]; k++) {
+				std::cout << (int) image[i][j][k] << " ";
+			}
+		}
+		std::cout << std::endl;
+	}
+}
+
+void print(filter filt) {
+	for(int i = 0; i < filt.shape()[0]; i++) {
+		for(int j = 0; j < filt.shape()[1]; j++) {
+			std::cout << filt[i][j] << " ";
+		}
 		std::cout << std::endl;
 	}
 }

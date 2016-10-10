@@ -23,13 +23,15 @@ char HOUSE_FILE[] = "P2/res/house.raw";
 char RICE_FILE[] = "P3/res/rice.raw";
 
 //Out file names
-char P1B_OUT[] = "P1B_out.raw";
-char P1C_OUT[] = "P1C_out.raw";
-char P2A_OUT[] = "P2A_out";
-char P2B_OUT[] = "P2B_out";
+char P1B_OUT[] = "p1/out/P1B_out";
+char P1C_OUT[] = "p1/out/P1C_out";
+char P2A_OUT[] = "p2/out/P2A_out";
+char P2B_OUT[] = "p2/out/P2B_out";
+char P3A_OUT[] = "p3/out/P3A_out_";
 
 //Binarization method
 int GLOBAL_MEAN_THRESHOLD = 1;
 int ADAPTIVE_LOCAL_MEAN = 2;
+
 
 #endif
