@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 	int BytesPerPixel = 3;
 	int Size = 130;
 	
+	cout << "Input image size has to be 130x130" << endl;
 	// Check for proper syntax
 	if (argc < 3){
 		cout << "Syntax Error - Incorrect Parameter Usage:" << endl;

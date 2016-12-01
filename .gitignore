@@ -38,6 +38,9 @@
 *.dSYM/
 *.su
 
+#opencv
+opencv-2.4.13/
+
 # Directory specific files
 #Homework 1
 Homework\ 1/Report/
@@ -47,3 +50,12 @@ Homework\ 1/Homework\ Submission
 #Homework 2
 Homework\ 2/boost_1_61_0/
 Homework\ 2/misc/
+
+#Homework 3
+Homework\ 3/armadillo-7.500.0/
+Homework\ 3/misc/
+
+#Homework 4
+Homework\ 4/misc/
+Homework\ 4/tutorials/
+Homework\ 4/res/

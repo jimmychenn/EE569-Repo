@@ -1,0 +1,59 @@
+# EE569 Homework Assignment #3
+# Date: 11/6/2016
+# Name: Jimmy Chen
+# ID: 8697-2912-40
+# email: jimmylch@usc.edu
+#
+# Compiled on OS X Yosemite with gcc
+
+CC = g++
+LN = g++
+DEBUG = -g
+FLAGS = $$(pkg-config --cflags --libs opencv)
+
+export CPATH = include/
+
+all: p1a p1b p2a p2b p2c p3a
+
+p1a:
+	@echo "Problem 1 part a"
+	@echo "compiling and linking code"
+#	$(LN) -c readraw.h
+	$(CC) P1/src/p1a.cpp $(FLAGS) -o sol1a
+	@echo "to run program syntax is: " program_name
+
+p1b:
+	@echo "Problem 1 part b"
+	@echo "compiling and linking code"
+#	$(LN) -c readraw.h
+	$(CC) P1/src/p1b.cpp $(FLAGS) -o sol1b
+	@echo "to run program syntax is: " program_name
+
+p2a:
+	@echo "Problem 2 part a"
+	@echo "compiling and linking code"
+	$(CC) P2/src/p2a.cpp $(FLAGS) -o sol2a
+	@echo "to run program syntax is: " program_name input_image.jpg
+	@echo "Please use only jpg images"
+
+p2b:
+	@echo "Problem 2 part b"
+	@echo "compiling and linking code"
+	$(CC) P2/src/p2b.cpp $(FLAGS) -o sol2b
+	@echo "to run program syntax is: " program_name input_image_1.jpg input_image_2.jpg
+
+p2c:
+	@echo "Problem 2 part c"
+	@echo "compiling and linking code"
+	$(CC) P2/src/p2c.cpp $(FLAGS) -o sol2c
+	@echo "to run program syntax is: " program_name
+
+p3a:
+	@echo "Problem 3 part a"
+	@echo "compiling and linking code"
+	$(CC) P3/src/p3a.cpp $(FLAGS) -o sol3a
+	@echo "to run program syntax is: " program_name
+
+
+clean:
+	rm p1/out/*.raw p2/out/*.raw p3/out/*.raw sol*
